@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-g -m32 -g -Wall
+CFLAGS=-g -g -Wall
 RM=rm -f
 TARGET=exec
 OBJECTS=main.o exo1.o
