@@ -22,72 +22,125 @@ short hamming_encoding(const char c)
    short code = 0;
 
    // Completer la fonction ici
-   //map le char
-   for(unsigned i =0,j=2; i<8;i++,j++)
-   {
-      if(i==3 || i==4)
-         j++;
-      
-      code |= (c>>i)&(0x0001<<j);
-   }
+    for (unsigned i = 0,j=2; i <8; i++,j++)
+    {
+        if (j == 3 || j == 7)
+            j++;
+        if((c >> i) & 1)
+            code |= 1<<j;
+    }
 
-   //p0
-   short p0 =0;
-   for(unsigned i =2; i<=14; i+=2)
-   {
-      p0 |= (c>>i)& 0x0001;
-   }
-   code |= parity(p0);
+    //p0
+    code |=
+        parity((code & (1<<2)) |
+            (code & (1<<4)) |
+            (code & (1<<6)) |
+            (code & (1<<8)) |
+            (code & (1<<10)) |
+            (code & (1<<12)) |
+            (code & (1<<14)));
 
-
-   //p1
-   short p1 = 0;
-      for(unsigned i =2; i<=14;)
-   {
-      if(i&0x0001)
-         i++;
-      else
-           i+=3;
-      
-      
-
-      p1 |= (c>>i)& 0x0001;
-   }
-   code |= (parity(p1)<<1);
-
-      //p2
-   short p2 = 0;
-      for(unsigned i =3; i<=14; i++)
-   {
-      if(i==7)
-         i+=4;
-
-      p2 |= (c>>i)& 0x0001;
-   }
-   code |= (parity(p2)<<3);
-
-   //p3
-   short p3 = 0;
-      for(unsigned i =7; i<=14; i++)
-   {
-
-      p3 |= (c>>i)& 0x0001;
-   }
-   code |= (parity(p3)<<7);
+    //p1
+    code |=
+        parity((code & (1<<2)) |
+            (code & (1<<5)) |
+            (code & (1<<6)) |
+            (code & (1<<9)) |
+            (code & (1<<10)) |
+            (code & (1<<13)) |
+            (code & (1<<14)))
+        << 1;
+    //p2
+     code |=
+        parity((code & (1<<4)) |
+            (code & (1<<5)) |
+            (code & (1<<6)) |
+            (code & (1<<11)) |
+            (code & (1<<12)) |
+            (code & (1<<13)) |
+            (code & (1<<14)))
+        << 3;
+    //p3
+     code |=
+        parity((code & (1<<8)) |
+            (code & (1<<9)) |
+            (code & (1<<10)) |
+            (code & (1<<11)) |
+            (code & (1<<12)) |
+            (code & (1<<13)) |
+            (code & (1<<14)))
+        << 7;
 
    return code;
 }
 
-char hamming_decoding(const short c)
+char hamming_decoding(const short ccc)
 {
    // Completer la fonction ici
 
-   short cc = c;
+   short c = ccc;
+   short cc = 0;
+
+   //c0
+   cc |=
+        parity((c & (1)) |
+            (c & (1<<2)) |
+            (c & (1<<4)) |
+            (c & (1<<6)) |
+            (c & (1<<8)) |
+            (c & (1<<10)) |
+            (c & (1<<12))|
+            (c & (1<<14)) 
+            );
+
+   //c1
+   cc |=
+        parity((c & (1<<1)) |
+            (c & (1<<2)) |
+            (c & (1<<5)) |
+            (c & (1<<6)) |
+            (c & (1<<9)) |
+            (c & (1<<10)) |
+            (c & (1<<13)) |
+            (c & (1<<14)))
+            <<1;
+   
+   //c2
+   cc |=
+        parity((c & (1<<3)) |
+            (c & (1<<4)) |
+            (c & (1<<5)) |
+            (c & (1<<6)) |
+            (c & (1<<11)) |
+            (c & (1<<12)) |
+            (c & (1<<13)) |
+            (c & (1<<14)))
+            <<2;
+
+   //c3
+   cc |=
+        parity((c & (1<<7)) |
+            (c & (1<<8)) |
+            (c & (1<<9)) |
+            (c & (1<<10)) |
+            (c & (1<<11)) |
+            (c & (1<<12)) |
+            (c & (1<<13)) |
+            (c & (1<<14)))
+            <<3;
+
+   if(cc)
+   {
+      if(((cc-1)>>c)&1)
+         c |= 1<<(cc-1);
+      else
+         c ^= 1<<(cc-1);
+   }
 
    char code = 0;
-   code |= (cc & 0x0004) >> 2;
-   code |= (cc & 0x0070) >> 3;
-   code |= (cc & 0x0F00) >> 4;
+   code |= (c & 0x0004) >> 2;
+   code |= (c & 0x0070) >> 3;
+   code |= (c & 0x0F00) >> 4;
 
    return code;
 }
