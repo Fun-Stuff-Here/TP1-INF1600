@@ -27,10 +27,23 @@ package acc_proc_programs is
    -- Programme utilise pour Q4 & Q5
    constant program_1 : memtype := (
       -- ECRIRE VOTRE PROGRAMME ICI
-      -- UNE LIGNE PAR INSTRUCTION
-      to_uint16((stop, 0)),    --  FIN
+      -- UNE LIGNE PAR INSTRUCTION     
       +1,                      -- S(0)
       +2,                      -- S(1)
+      to_uint16((ld, 0)),--
+      to_uint16((add, 0)),--+=1
+      to_uint16((add, 1)), -- += S()
+      to_uint16((st,2)), -- S(2)
+      to_uint16((add, 0)), -- +=1
+      to_uint16((add, 1)), -- += S(1)
+      to_uint16((st, 3)), --S(3)
+      to_uint16((add, 0)), -- +=1
+      to_uint16((add, 2)), --+= S(2)
+      to_uint16((st, 4)), --S(4)
+      to_uint16((add, 0)), -- +=1
+      to_uint16((add, 3)), --+= S(3)
+      to_uint16((st, 5)), --S(5)
+      to_uint16((stop, 0)),    --  FIN
       others => 0
    );
    
