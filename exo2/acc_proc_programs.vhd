@@ -28,9 +28,26 @@ package acc_proc_programs is
    constant program_1 : memtype := (
       -- ECRIRE VOTRE PROGRAMME ICI
       -- UNE LIGNE PAR INSTRUCTION
-      to_uint16((stop, 0)),    --  FIN
-      +1,                      -- S(0)
-      +2,                      -- S(1)
+      to_uint16((ld,   14)),   -- 0
+      to_uint16((add,  15)),   -- 1
+      to_uint16((add , 14)),   -- 2
+      to_uint16((st,   16)),   -- 3
+      to_uint16((add,  15)),   -- 4
+      to_uint16((add,  14)),   -- 5
+      to_uint16((st,   17)),   -- 6
+      to_uint16((add,  16)),   -- 7
+      to_uint16((add,  14)),   -- 8
+      to_uint16((st,   18)),   -- 9
+      to_uint16((add,  17)),   -- 10
+      to_uint16((add,  14)),   -- 11
+      to_uint16((st,   19)),   -- 12
+      to_uint16((stop, 0)),   -- 13 FIN
+      +1,                     -- 14 S(0)
+      +2,                     -- 15 S(1)
+      int16_to_uint16(0),     -- 16 S(2)
+      int16_to_uint16(0),     -- 17 S(3)
+      int16_to_uint16(0),     -- 18 S(4)
+      int16_to_uint16(0),     -- 19 S(5)
       others => 0
    );
    
