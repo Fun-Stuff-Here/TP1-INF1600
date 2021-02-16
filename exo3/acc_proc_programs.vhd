@@ -22,40 +22,28 @@ package acc_proc_programs is
    -- Programme utilise pour Q2
    constant program_1 : memtype := (
       -- ajouter votre programme ici, une ligne par instruction
-      to_uint16((lda, 13) ),      --0  Ma, pointeur vers data
+      to_uint16((lda,  13)),      --0 Ma, pointeur vers data
       --debut boucle
-      to_uint16((ldi, 0)),        --1 Load S(Ma)
-      to_uint16((adda, 15)),      --2 increment Ma
-      to_uint16((addx, 0)),       --3 add S(Ma)
-      to_uint16((add, 15 )),      --4 add 1  
-      to_uint16((adda, 15)),      --5 increment Ma  
-      to_uint16((sti, 0 )),       --6 store at S(Ma)  
-      to_uint16((suba, 15)),       --7 decremente Ma  
+      to_uint16((ldi,   0)),      --1 Load S(Ma) 1
+      to_uint16((adda, 15)),      --2 increment Ma (Ma 16)
+      to_uint16((addx,  0)),      --3 add S(Ma) 3
+      to_uint16((add,  15)),      --4 add 4
+      to_uint16((adda, 15)),      --5 increment (Ma 17) 
+      to_uint16((sti,   0)),      --6 store 4 at S(Ma)  
+      to_uint16((suba, 15)),      --7 decremente Ma (Ma 16)
       --Condition
-      to_uint16((ld, 14)),        --8 load nIteration
-      to_uint16((sub, 15 )),      --9 decremnente nIteration
-      to_uint16((st, 14 )),       --10 store nIteration
-      to_uint16((br, 1)),         --11 while(!nIteration)
+      to_uint16((ld,   14)),      --8 load nIteration 
+      to_uint16((sub,  15)),      --9 decremnente nIteration
+      to_uint16((st,   14)),      --10 store nIteration
+      to_uint16((brnz,  1)),      --11 while(!nIteration)
       --Fin
-      to_uint16((stop, 0)),       --12  FIN 
-      +15,                        --13 Pointeur a S(0)
+      to_uint16((stop,  0)),      --12 FIN 
+      +15,                        --13 Pointeur vers S(0)
       +4,                         --14 nIteration
       +1,                         --15 S(0) 
       +2,                         --16 S(1)
       others => 0
    );
-
---Boucle exemple
-
--- do{
--- #code b
--- }while(a);
-
--- boucle : 
---   #code b
---   #code a
---   j? boucle
-
    
 end acc_proc_programs;
 

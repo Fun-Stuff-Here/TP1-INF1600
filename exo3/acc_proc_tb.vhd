@@ -12,7 +12,7 @@ architecture test of acc_proc_tb is
 
    component acc_proc is
    generic(
-      program : memtype := program_1
+      program : memtype := program_0
    );
    port(
       rst : in  std_logic;
@@ -28,7 +28,7 @@ architecture test of acc_proc_tb is
 begin
 
    UUT1 : acc_proc
-   generic map( program => program_1 )
+   generic map( program => program_0 )
    port map( rst => rst, clk => clk);
    
    clk <= not clk after period / 2;
