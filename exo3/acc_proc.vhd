@@ -7,7 +7,7 @@ use work.acc_proc_programs.all;
 
 entity acc_proc is
 generic(
-   program : memtype := program_0
+   program : memtype := program_1
 );
 port(
    rst : in  std_logic;
@@ -23,7 +23,7 @@ architecture arch of acc_proc is
    signal MA    : uint16;
    signal state : state_type; 
    
-   signal mem : memtype := program;
+   signal mem : memtype := program_1;
 
 begin
 
