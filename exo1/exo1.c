@@ -43,34 +43,34 @@ char hamming_decoding(const short c)
 {
    // Completer la fonction ici
 
-   short ccc = c;
-   short cc = 0;
+   short cc = c;
+   short ccc = 0;
 
    //c0
-   cc |= parity(ccc & 0x5555);
+   ccc |= parity(cc & 0x5555);
 
    //c1
-   cc |= parity(ccc & 0x6666) << 1;
+   ccc |= parity(cc & 0x6666) << 1;
 
    //c2
-   cc |= parity(ccc & 0x7878) << 2;
+   ccc |= parity(cc & 0x7878) << 2;
 
    //c3
-   cc |= parity(ccc & 0x7f80) << 3;
+   ccc |= parity(cc & 0x7f80) << 3;
 
-   if (cc) //une erreur
+   if (ccc) //une erreur
    {
       //position cc-1
-      if (((cc - 1) >> ccc) & 1) //push un 1
-         ccc |= 1 << (cc - 1);
+      if (((ccc - 1) >> cc) & 1) //push un 1
+         cc |= 1 << (ccc - 1);
       else                       //push un 0
-         ccc ^= 1 << (cc - 1);
+         cc ^= 1 << (ccc - 1);
    }
 
    char code = 0;
-   code |= (ccc & 0x0004) >> 2;
-   code |= (ccc & 0x0070) >> 3;
-   code |= (ccc & 0x0F00) >> 4;
+   code |= (cc & 0x0004) >> 2;
+   code |= (cc & 0x0070) >> 3;
+   code |= (cc & 0x0F00) >> 4;
 
    return code;
 }
