@@ -28,7 +28,7 @@ architecture test of acc_proc_tb is
 begin
 
    UUT1 : acc_proc
-   generic map( program => program_0 ) -- CHARGER VOTRE PROGRAMME ICI -> program_1
+   generic map( program => program_1 ) -- CHARGER VOTRE PROGRAMME ICI -> program_1
    port map( rst => rst, clk => clk);
    
    clk <= not clk after period / 2;
